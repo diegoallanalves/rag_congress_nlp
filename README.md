@@ -1,36 +1,56 @@
-# DAQO China Evidence Intelligence v10
+# DAQO China Strategic Exposure Intelligence — V10 Compatible
 
-This version merges the two DAQO RAG runs into one evidence-first consensus dataset.
+This NLP application is designed to consume the Excel exports produced by the simplified DAQO Congressional RAG V10 workflow.
 
-## One data source
-`data/merged_evidence_consensus.xlsx`
+## Data input
 
-The two original run files are no longer required at runtime.
+The app accepts **one or many V10 RAG Excel exports** and merges them automatically. Each workbook must contain at least:
 
-## Main features
-- Evidence-first NLP analysis
-- China Exclusion Index
-- Trend chart by Congress
-- Policy-mechanism heatmap
-- Risk/opportunity mix
-- Evidence phrase treemap
-- Confidence vs exclusion-pressure bubble chart
-- Evidence explorer beside the visualisations
-- RAG run agreement and consensus confidence
-- Optional OpenAI Evidence Brief using only the filtered evidence
+- `All Results`
+- `Evidence`
+
+The standard V10 export also contains `Relevant`, `Not Relevant`, `Failed Analysis`, and `Methodology`.
+
+## Main workflow
+
+1. Upload one or more V10 RAG exports.
+2. Validate the workbook structure.
+3. Merge actions and evidence.
+4. Filter by Congress and Country.
+5. Run evidence-first NLP.
+6. Explore trends, themes, evidence phrases, and Congressional evidence.
+7. Optionally generate an OpenAI evidence brief.
+8. Export the merged NLP intelligence workbook.
+
+## NLP focus
+
+The NLP layer primarily analyzes the **Evidence Quote** and **Why It Matters** text. Duplicate actions and duplicate evidence extracts are consolidated. Failed analysis remains separate from Not Relevant.
+
+Visuals include:
+
+- China exclusion pressure by Congress
+- risk/opportunity mix by country
+- restrictive-China policy mechanisms
+- policy mechanism heatmap
+- TF-IDF evidence language landscape
+- exclusion signal distribution
+- evidence explorer
 
 ## OpenAI
-Local:
-1. Copy `.env.example` to `.env`
-2. Add `OPENAI_API_KEY=...`
 
-Streamlit Cloud:
-Add `OPENAI_API_KEY` under app Secrets.
+For local use, create `.env` from `.env.example`:
 
-The app does not send the entire dataset to OpenAI. It sends only the top evidence-rich actions in the current filtered view.
+```text
+OPENAI_API_KEY=your_key_here
+```
 
-## Run
+For Streamlit Cloud, add `OPENAI_API_KEY` under app Secrets.
+
+## Run locally
+
 ```powershell
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+`.env` is ignored and must never be committed.
